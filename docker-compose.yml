@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: ev-fleet-postgres
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: evfleet
+      POSTGRES_USER: evfleet_user
+      POSTGRES_PASSWORD: evfleet_password
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
