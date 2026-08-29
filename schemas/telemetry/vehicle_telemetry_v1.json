@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ev-fleet-iq.local/schemas/vehicle-telemetry-v1.json",
+  "title": "EV-FleetIQ Vehicle Telemetry",
+  "description": "Version 1 telemetry contract for electric delivery vehicles.",
+  "type": "object",
+  "additionalProperties": false,
+
+  "required": [
+    "event_id",
+    "vehicle_id",
+    "driver_id",
+    "timestamp",
+    "latitude",
+    "longitude",
+    "speed_kmh",
+    "odometer_km",
+    "battery_soc_pct",
+    "battery_voltage_v",
+    "battery_current_a",
+    "battery_temperature_c",
+    "motor_temperature_c",
+    "motor_rpm",
+    "brake_temperature_c",
+    "harsh_acceleration",
+    "harsh_braking",
+    "speeding",
+    "idle_duration_sec",
+    "order_id",
+    "route_id",
+    "delivery_status"
+  ],
+
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "minLength": 1
+    },
+
+    "vehicle_id": {
+      "type": "string",
+      "pattern": "^EV[0-9]{3,6}$"
+    },
+
+    "driver_id": {
+      "type": "string",
+      "pattern": "^DRV[0-9]{3,6}$"
+    },
+
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+
+    "latitude": {
+      "type": "number",
+      "minimum": -90,
+      "maximum": 90
+    },
+
+    "longitude": {
+      "type": "number",
+      "minimum": -180,
+      "maximum": 180
+    },
+
+    "speed_kmh": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 200
+    },
+
+    "odometer_km": {
+      "type": "number",
+      "minimum": 0
+    },
+
+    "battery_soc_pct": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+
+    "battery_voltage_v": {
+      "type": "number",
+      "minimum": 0
+    },
+
+    "battery_current_a": {
+      "type": "number"
+    },
+
+    "battery_temperature_c": {
+      "type": "number",
+      "minimum": -40,
+      "maximum": 100
+    },
+
+    "motor_temperature_c": {
+      "type": "number",
+      "minimum": -40,
+      "maximum": 150
+    },
+
+    "motor_rpm": {
+      "type": "integer",
+      "minimum": 0
+    },
+
+    "brake_temperature_c": {
+      "type": "number",
+      "minimum": -40,
+      "maximum": 500
+    },
+
+    "harsh_acceleration": {
+      "type": "boolean"
+    },
+
+    "harsh_braking": {
+      "type": "boolean"
+    },
+
+    "speeding": {
+      "type": "boolean"
+    },
+
+    "idle_duration_sec": {
+      "type": "integer",
+      "minimum": 0
+    },
+
+    "order_id": {
+      "type": "string",
+      "pattern": "^ORD[0-9]{4,8}$"
+    },
+
+    "route_id": {
+      "type": "string",
+      "pattern": "^RT[0-9]{4,8}$"
+    },
+
+    "delivery_status": {
+      "type": "string",
+      "enum": [
+        "ASSIGNED",
+        "EN_ROUTE",
+        "IN_TRANSIT",
+        "AT_STOP",
+        "DELIVERED",
+        "CANCELLED"
+      ]
+    }
+  }
+}
