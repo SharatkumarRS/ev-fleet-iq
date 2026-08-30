@@ -40,11 +40,11 @@ class VehicleState:
     route_id: str
     delivery_status: str
 
-    def update_position(self, elapsed_seconds: float) -> None:
+    def update_position(self, elapsed_seconds: float) -> float:
         """Update GPS position and odometer based on speed and heading."""
 
         if elapsed_seconds <= 0 or self.speed_kmh <= 0:
-            return
+            return 0.0
 
         distance_km = self.speed_kmh * elapsed_seconds / 3600
 
@@ -63,6 +63,8 @@ class VehicleState:
         self.latitude += latitude_delta
         self.longitude += longitude_delta
         self.odometer_km += distance_km
+
+        return distance_km
 
     def update_battery(self, distance_km: float) -> None:
         """Reduce battery SOC based on distance travelled."""
@@ -133,7 +135,7 @@ class VehicleState:
             self.idle_duration_sec += int(elapsed_seconds)
         else:
             self.idle_duration_sec = 0
-            
+
     def to_telemetry(
         self,
         event_id: str,
